@@ -1,0 +1,53 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+            },
+            "args": [],
+            "justMyCode": false,
+        },
+        {
+            "name": "Python: PyTest Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": [
+                "${file}",
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "REQUESTS_CA_BUNDLE": "/etc/ssl/certs/ca-certificates.crt",
+            },
+            "justMyCode": false,
+        },
+        {
+            "name": "Python: Snaking Service",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "hypercorn",
+            "args": [
+                "snaking.app:app",
+                "--reload",
+                "--bind=localhost:8000",
+                "--log-level=debug"
+            ],
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+            },
+            "justMyCode": true,
+        },
+    ]
+}

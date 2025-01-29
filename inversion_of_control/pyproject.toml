@@ -1,0 +1,118 @@
+[tool.poetry]
+name = "ioc"
+version = "0.1.0"
+description = "A dating app for legless ladies and gentle-snakes"
+authors = ["Timon Tomas <timon.tomas@zeiss.com>"]
+readme = "README.md"
+packages = [{ include = "snaking" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+dependency-injector = "^4.41.0"
+fastapi = "^0.115.5"
+pydantic = { extras = ["dotenv"], version = "^2.10.2" }
+pydantic-settings = "^2.6.1"
+hypercorn = "^0.17.3"
+httpx = "^0.28.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.1"
+mypy = "^1.10.0"
+ruff = "^0.4.4"
+pytest-asyncio = "^0.23.7"
+pydocstyle = "^6.3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.ruff]
+include = ["*.py"]
+line-length = 120
+indent-width = 4
+
+
+[tool.ruff.lint]
+ignore = [
+    "ANN401", # any-type
+    "ANN101", # missing-type-self
+    "D101",   # missing-docstring
+    "G004",   # logging-f-string
+    "ANN102", # missing-type-cls
+    "N818",   # error-suffix-on-exception-name
+    "COM812", # missing-trailing-comma
+    "ISC001", # single-line-implicit-string-concatenation
+    "S101",   # allow assertions in tests
+]
+select = [
+    "ANN", # force annotations
+    "ARG", # report unused args
+    "BLE", # boolean trap guard
+    "C",   # pylint conventions
+    "C4",  # better list/set/dict comprehensions
+    "COM", # trailing comma validation
+    "D",   # pydocstyle compliance
+    "E",   # guard against hard-to-spot mistakes that might lead to critical errors
+    "EM",  # nicer error messages
+    "ERA", # guard against commented out code
+    "F",   # Pyflakes, included in default
+    "G",   # force proper logger invocation
+    "I",   # sorting
+    "ICN", # force import naming conventions
+    "INP", # guard against implicit namespace packages
+    "ISC", # flake8 rules
+    "N",   # force PEP8 naming conventions
+    "PIE", # guard against unnecessary/duplicate statements/expressions
+    "PL",  # pylint
+    "PYI", # enable type hinting stub files support
+    "Q",   # unify quotes
+    "RET", # simplify functions by omitting unnecessary branches and return statements
+    "RSE", # guard against common exception raising pitfalls
+    "S",   # guard against insecure statements/expressions
+    "SLF", # guard against private member access
+    "T20", # guard against print statements
+    "TID", # introduce module banning and force absolute imports
+    "W",   # pycodestyles errors and warnings
+]
+fixable = ["ALL"] # Allow fix for all enabled rules (when `--fix`) is provided.
+unfixable = []
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"noxfile.py" = [
+    "ARG001", # unused-function-argument
+    "ARG004", # unused-static-method-argument
+    "D",      # pydocstyle compliance
+    "INP001", # implicit-namespace-package
+    "SLF001", # private-member-access
+    "S101",   # allow assertions in tests
+    "S105",   # hardcoded-password-string
+    "S106",   # hardcoded-password-func-arg
+    "D103",
+] # produces a lot of false positives due to usage of fixtures in tests
+"testing/*" = [
+    "INP001", # implicit-namespace-package
+]
+"**/*" = [
+    "D100",
+    "D102", # A lot of false positives - only endpoints in routers are considered public for us
+    "D103", # A lot of false positives - only endpoints in routers are considered public for us
+    "D104", # We don't need separate docs for init files
+    "D107", # We don't want docs for init files
+    "D417", # Some parameters are skipped from the pydoc
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+plugins = ["pydantic.mypy"]
+check_untyped_defs = true
+warn_no_return = true
+warn_unreachable = true
+ignore_missing_imports = true

@@ -1,2 +1,3 @@
-# design_patterns
-Implementation of different design patterns in different programming languages with simple usecase examples..
+# Design Patterns
+
+Implementation of different architectural and design patterns in different programming languages with simple use cases and examples..
